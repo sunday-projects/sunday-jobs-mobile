@@ -1,18 +1,26 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider as ReduxProvider } from 'react-redux';
 import {
   SafeAreaView,
   StyleSheet
 } from 'react-native';
 
+import store from '@/stores';
+import { MainScreen } from '@/screens';
+
 export interface IAppProps {}
 
 export default function App(props: IAppProps) {
   return (
-    <NavigationContainer>
-      <SafeAreaView></SafeAreaView>
-    </NavigationContainer>
+    <ReduxProvider store={store}>
+      <NavigationContainer>
+        <SafeAreaView>
+          <MainScreen />
+        </SafeAreaView>
+      </NavigationContainer>
+    </ReduxProvider>
   );
 };
 

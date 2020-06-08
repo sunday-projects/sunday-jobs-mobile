@@ -15,6 +15,11 @@ export interface IUserReducer {
   currentUser: IUser;
 }
 
+export interface IRootState {
+  user: IUserReducer;
+  job: IJobReducer;
+}
+
 /**
  * Model Type Definitions
  */
