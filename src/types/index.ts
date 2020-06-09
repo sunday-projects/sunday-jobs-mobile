@@ -37,3 +37,14 @@ export interface IJob {
 export interface IUser {
   name: string;
 }
+
+/**
+ * React Navigation Native Custom Types and Interfaces
+ */
+
+export type RootStackParamList =  {
+  Home: {
+    currentUser: IUser;
+  };
+  SignIn: undefined;
+}

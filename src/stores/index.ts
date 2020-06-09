@@ -1,9 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 
-import { jobReducer } from '@/reducers';
+import { jobReducer, userReducer } from '@/reducers';
 
 const reducers = combineReducers({
-  job: jobReducer
+  job: jobReducer,
+  user: userReducer
 });
 
 const store = createStore(reducers);

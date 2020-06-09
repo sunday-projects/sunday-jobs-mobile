@@ -2,10 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as ReduxProvider } from 'react-redux';
-import {
-  SafeAreaView,
-  StyleSheet
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import store from '@/stores';
 import { MainScreen } from '@/screens';
@@ -16,13 +13,11 @@ export default function App(props: IAppProps) {
   return (
     <ReduxProvider store={store}>
       <NavigationContainer>
-        <SafeAreaView>
-          <MainScreen />
-        </SafeAreaView>
+        <MainScreen />
       </NavigationContainer>
     </ReduxProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   engine: {
@@ -35,5 +30,5 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
-  }
+  },
 });
