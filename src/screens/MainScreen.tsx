@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { IRootState } from '@/types';
 import { completedSignIn, completedSignOut } from '@/resolvers/user-resolver';
-import { HomeScreen, SignInScreen } from '@/screens';
+import HomeScreen from './HomeScreen';
+import SignInScreen from './SignInScreen'
 
 const Stack = createStackNavigator();
 

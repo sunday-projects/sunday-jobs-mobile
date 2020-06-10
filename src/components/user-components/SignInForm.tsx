@@ -76,6 +76,7 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
             value={signInData.password}
             leftIcon={<Icon name="lock" size={24} color="black" />}
             secureTextEntry={true}
+            onChangeText={(text) => handleChangeSignInData('password', text)}
           />
           <Button title="Sign In" type="solid" onPress={handleUserSignIn} />
         </View>

@@ -1,34 +1,49 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { View, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { View } from 'react-native';
 import Config from 'react-native-config';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import { IJob } from '@/types';
+import { IJob, IRootState } from '@/types';
 import { api } from '@/utils';
 import { setTotalJobs, completedFetchJobs } from '@/resolvers/job-resolver';
+import { JobList } from '@/components';
 
 export interface IJobsTabScreenProps { }
 
 export default function JobsTabScreen({ }: IJobsTabScreenProps) {
   const dispatch = useDispatch();
+  const jobs = useSelector((state: IRootState) => state.job.jobs);
   const [loading, setLoading] = useState(false);
 
-  const fetchAllBinIds = useCallback(async () => {
+  const fetchJobs = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await api.get(`/e/collection/${Config.COLLECTION_ID}/all-bins`);
-      const binIdArr = data.records;
-      const bins: IJob[] = [];
+      let jobsFromAsyncStorage: IJob[] | any = await AsyncStorage.getItem('jobs');
 
-      dispatch(setTotalJobs(binIdArr.length));
-
-      for (const binId of binIdArr) {
-        const { data } = await api.get(`/b/${binId.id}`);
-        bins.push(data);
+      if (jobsFromAsyncStorage) {
+        jobsFromAsyncStorage = JSON.parse(jobsFromAsyncStorage);
+        dispatch(setTotalJobs(jobsFromAsyncStorage.length));
+        dispatch(completedFetchJobs(jobsFromAsyncStorage));
+        setLoading(false);
+      } else {
+        const { data } = await api.get(`/e/collection/${Config.COLLECTION_ID}/all-bins`);
+        const binIdArr = data.records;
+        const bins: IJob[] = [];
+  
+        dispatch(setTotalJobs(binIdArr.length));
+  
+        for (const binId of binIdArr) {
+          const { data } = await api.get(`/b/${binId.id}`);
+          bins.push({ ...data, binId });
+        }
+  
+        dispatch(completedFetchJobs(bins));
+        setLoading(false);
+  
+        await AsyncStorage.setItem('jobs', JSON.stringify(bins));
       }
 
-      dispatch(completedFetchJobs(bins));
-      setLoading(false);
     } catch (err) {
       setLoading(false);
       console.error(err);
@@ -36,12 +51,12 @@ export default function JobsTabScreen({ }: IJobsTabScreenProps) {
   }, []);
 
   useEffect(() => {
-    fetchAllBinIds();
+    fetchJobs();
   }, []);
   
   return (
     <View>
-      <Text>This is JOB LIST!</Text>
+      <JobList jobs={jobs} loading={loading} />
     </View>
   );
 }

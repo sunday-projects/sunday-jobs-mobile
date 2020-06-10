@@ -26,6 +26,7 @@ export interface IRootState {
  */
 
 export interface IJob {
+  binId: string;
   jobId: number;
   jobName: string;
   binLocation: string;

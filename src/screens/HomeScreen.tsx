@@ -1,7 +1,7 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { RootStackParamList, IUser } from '@/types';
 import { JobsTabScreen } from '@/screens/tab-screens';
@@ -27,15 +27,15 @@ export default function HomeScreen({ navigation, currentUser }: IHomeScreenProps
 
           switch (route.name) {
             case 'Jobs':
-              iconName = 'check-square-o';
+              iconName = 'work';
               break;
             
             default:
-              iconName = 'check-square-o';
+              iconName = 'work';
               break;
           }
 
-          return <Icon name={iconName} size={size} color={color} />
+          return <MaterialIcon name={iconName} size={size} color={color} />
         }
       })}
     >
