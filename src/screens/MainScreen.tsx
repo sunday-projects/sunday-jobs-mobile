@@ -9,9 +9,9 @@ import { HomeScreen, SignInScreen } from '@/screens';
 
 const Stack = createStackNavigator();
 
-export interface IMainScreenProps { }
+export interface IMainScreenProps {}
 
-export default function MainScreen({ }: IMainScreenProps) {
+export default function MainScreen({}: IMainScreenProps) {
   const dispatch = useDispatch();
   const currentUser = useSelector(
     (state: IRootState) => state.user.currentUser,
@@ -37,16 +37,18 @@ export default function MainScreen({ }: IMainScreenProps) {
       checkCurrentUser();
     }
   }, []);
-  
+
   return (
     <Stack.Navigator>
-      {
-        currentUser.name ? (
-          <Stack.Screen name="Home" component={HomeScreen} initialParams={{ currentUser }} />
-        ) : (
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-        )
-      }
+      {currentUser.name ? (
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          initialParams={{ currentUser }}
+        />
+      ) : (
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+      )}
     </Stack.Navigator>
   );
 }

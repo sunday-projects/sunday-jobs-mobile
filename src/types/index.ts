@@ -9,6 +9,7 @@ export interface IAction {
 
 export interface IJobReducer {
   jobs: IJob[];
+  totalJobs: number;
 }
 
 export interface IUserReducer {
