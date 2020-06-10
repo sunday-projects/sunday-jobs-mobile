@@ -68,14 +68,16 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   jobItemCard: {
-    shadowOffset: {
-      height: 20,
-      width: 20,
-    },
+    elevation: 3,
+    borderRadius: 8,
+    marginBottom: 15
   },
   jobCompletionView: {},
   checkBox: {
     marginLeft: 0,
+    marginBottom: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
     backgroundColor: '#fff',
     borderWidth: 0
   },

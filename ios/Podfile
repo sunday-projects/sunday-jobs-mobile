@@ -81,6 +81,8 @@ target 'SundayJobsMobile' do
 
   pod 'react-native-config', :path => '../node_modules/react-native-config'
 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   target 'SundayJobsMobileTests' do
     inherit! :complete
     # Pods for testing

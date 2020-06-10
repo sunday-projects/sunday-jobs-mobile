@@ -10,3 +10,4 @@ export { default as SignInForm } from './user-components/SignInForm';
 export { default as JobList } from './job-components/JobList';
 export { default as JobItem } from './job-components/JobItem';
 export { default as JobItemSkeleton } from './job-components/JobItemSkeleton';
+export { default as EmptyJobsLottie } from './job-components/EmptyJobsLottie';

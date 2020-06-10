@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IJob, IRootState } from '@/types';
 import { setSelectedJobs as setSelectedJobsToRedux } from '@/resolvers/job-resolver';
 import JobItem from './JobItem';
 import JobItemSkeleton from './JobItemSkeleton';
+import EmptyJobsLottie from './EmptyJobsLottie';
 
 export interface IJobListProps {
   jobs: IJob[];
@@ -14,24 +15,27 @@ export interface IJobListProps {
 
 export default function JobList({ jobs, loading }: IJobListProps) {
   const dispatch = useDispatch();
-  // const selectedJobs: IJob[] = useSelector(
-  //   (state: IRootState) => state.job.selectedJobs,
-  // );
+  jobs = jobs || useSelector((state: IRootState) => state.job.jobs);
   const [selectedJobs, setSelectedJobs] = useState(new Map());
 
-  const onSelectJob = useCallback((binId: string | number) => {
-    const newSelectedJobs = new Map(selectedJobs);
-    newSelectedJobs.set(binId, !selectedJobs.get(binId));
-    setSelectedJobs(newSelectedJobs);
-    const selectedJobsArr: IJob[] = [];
-    
-    newSelectedJobs.forEach((selected, selectedBinId) => {
-      const foundJob = jobs.find(job => job.binId == selectedBinId && selected);
-      if (foundJob) selectedJobsArr.push(foundJob);
-    });
+  const onSelectJob = useCallback(
+    (binId: string | number) => {
+      const newSelectedJobs = new Map(selectedJobs);
+      newSelectedJobs.set(binId, !selectedJobs.get(binId));
+      setSelectedJobs(newSelectedJobs);
+      const selectedJobsArr: IJob[] = [];
 
-    dispatch(setSelectedJobsToRedux(selectedJobsArr));
-  }, [selectedJobs, jobs]);
+      newSelectedJobs.forEach((selected, selectedBinId) => {
+        const foundJob = jobs.find(
+          (job) => job.binId == selectedBinId && selected,
+        );
+        if (foundJob) selectedJobsArr.push(foundJob);
+      });
+
+      dispatch(setSelectedJobsToRedux(selectedJobsArr));
+    },
+    [selectedJobs, jobs],
+  );
 
   const decideRender = () => {
     if (loading) {
@@ -44,7 +48,7 @@ export default function JobList({ jobs, loading }: IJobListProps) {
         />
       );
     } else if (!loading && !jobs.length) {
-      return <Text>NO JOBS FOR NOW!</Text>;
+      return <EmptyJobsLottie />;
     } else {
       return (
         <FlatList
@@ -63,5 +67,9 @@ export default function JobList({ jobs, loading }: IJobListProps) {
     }
   };
 
-  return <View>{decideRender()}</View>;
+  return (
+    <View>
+      {decideRender()}
+    </View>
+  );
 }
