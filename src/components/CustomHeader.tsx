@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StackHeaderProps } from '@react-navigation/stack';
+import { useSelector } from 'react-redux';
 import { Header, Text, Button } from 'react-native-elements';
 import {
   heightPercentageToDP as hp,
@@ -8,17 +9,32 @@ import {
 } from 'react-native-responsive-screen';
 
 import { globalTheme } from '@/styles';
+import { IRootState, IUser } from '@/types';
 
 export interface ICustomHeader extends StackHeaderProps {}
 
-export default function CustomHeader({ navigation }: ICustomHeader) {
+export default function CustomHeader({ navigation, scene }: ICustomHeader) {
+  const currentUser: IUser =
+    useSelector((state: IRootState) => state.user.currentUser) ||
+    (scene.route.params as any).currentUser;
+  const selectedJobs = useSelector(
+    (state: IRootState) => state.job.selectedJobs,
+  );
+  const [totalSelectedJobs, setTotalSelectedJobs] = useState(
+    selectedJobs.length,
+  );
+
+  useEffect(() => {
+    setTotalSelectedJobs(selectedJobs.length);
+  }, [selectedJobs]);
+
   return (
     <Header
       backgroundColor={globalTheme.defaultBlue}
       containerStyle={styles.customHeaderWrapper}>
       <View style={styles.greeterWrapper}>
         <Text h3 h3Style={styles.greeterText}>
-          Hello, Jake!
+          Hello, {currentUser.name}
         </Text>
       </View>
       <View style={styles.jobActionsWrapper}>
@@ -31,7 +47,9 @@ export default function CustomHeader({ navigation }: ICustomHeader) {
           buttonStyle={styles.actionButton}
         />
         <Button
-          title={`${'acknowledge'.toUpperCase()}`}
+          title={`${'acknowledge'.toUpperCase()}${
+            totalSelectedJobs ? ` (${totalSelectedJobs})` : ''
+          }`}
           type="outline"
           buttonStyle={styles.actionButton}
         />

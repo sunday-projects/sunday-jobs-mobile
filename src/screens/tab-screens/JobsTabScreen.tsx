@@ -20,7 +20,7 @@ export default function JobsTabScreen({ }: IJobsTabScreenProps) {
     setLoading(true);
     try {
       let jobsFromAsyncStorage: IJob[] | any = await AsyncStorage.getItem('jobs');
-
+      
       if (jobsFromAsyncStorage) {
         jobsFromAsyncStorage = JSON.parse(jobsFromAsyncStorage);
         dispatch(setTotalJobs(jobsFromAsyncStorage.length));
@@ -35,7 +35,7 @@ export default function JobsTabScreen({ }: IJobsTabScreenProps) {
   
         for (const binId of binIdArr) {
           const { data } = await api.get(`/b/${binId.id}`);
-          bins.push({ ...data, binId });
+          bins.push({ ...data, binId: binId.id });
         }
   
         dispatch(completedFetchJobs(bins));

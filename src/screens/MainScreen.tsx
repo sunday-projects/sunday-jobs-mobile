@@ -7,6 +7,7 @@ import { IRootState } from '@/types';
 import { completedSignIn, completedSignOut } from '@/resolvers/user-resolver';
 import HomeScreen from './HomeScreen';
 import SignInScreen from './SignInScreen';
+import { CustomHeader } from '@/components';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,9 @@ export default function MainScreen({}: IMainScreenProps) {
           name="Home"
           component={HomeScreen}
           initialParams={{ currentUser }}
+          options={{
+            header: stackHeaderProps => <CustomHeader {...stackHeaderProps} />
+          }}
         />
       ) : (
         <Stack.Screen name="SignIn" component={SignInScreen} />

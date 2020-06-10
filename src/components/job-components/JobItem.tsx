@@ -10,18 +10,21 @@ import { globalTheme } from '@/styles';
 
 export interface IJobItemProps {
   job: IJob;
+  selected: boolean;
+  onSelectJob: (binId: string | number) => void;
 }
 
-export default function JobItem({ job }: IJobItemProps) {
+export default function JobItem({ job, selected, onSelectJob }: IJobItemProps) {
   return (
     <Card containerStyle={styles.jobItemCard}>
       <View style={[styles.inline, styles.jobCompletionView]}>
         <CheckBox
-          checked={job.completed}
+          checked={selected}
           title={job.jobName.toUpperCase()}
           containerStyle={styles.checkBox}
           textStyle={styles.checkBoxText}
           size={35}
+          onPress={() => onSelectJob(job.binId)}
         />
       </View>
       <View style={styles.jobDescriptionView}>

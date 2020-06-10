@@ -34,3 +34,10 @@ export const setTotalJobs = (totalJobs: number): IAction => ({
     totalJobs
   }
 });
+
+export const setSelectedJobs = (selectedJobs: IJob[]): IAction => ({
+  type: 'SET_SELECTED_JOBS',
+  payload: {
+    selectedJobs
+  }
+});

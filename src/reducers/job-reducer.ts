@@ -3,6 +3,7 @@ import { IJobReducer, IAction, IJob } from '@/types';
 const initalState: IJobReducer = {
   jobs: [],
   totalJobs: 0,
+  selectedJobs: []
 };
 
 export default function jobReducer(
@@ -54,6 +55,12 @@ export default function jobReducer(
       return {
         ...state,
         totalJobs: action.payload.totalJobs
+      };
+
+    case 'SET_SELECTED_JOBS':
+      return {
+        ...state,
+        selectedJobs: action.payload.selectedJobs
       };
 
     default:

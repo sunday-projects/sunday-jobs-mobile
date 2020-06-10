@@ -10,6 +10,7 @@ export interface IAction {
 export interface IJobReducer {
   jobs: IJob[];
   totalJobs: number;
+  selectedJobs: IJob[];
 }
 
 export interface IUserReducer {

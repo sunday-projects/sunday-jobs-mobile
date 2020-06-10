@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { Header } from 'react-native-elements';
 
 import { RootStackParamList, IUser } from '@/types';
 import { JobsTabScreen } from '@/screens/tab-screens';
-import { CustomHeader } from '@/components';
 import { globalTheme } from '@/styles';
 
 const Tab = createBottomTabNavigator();
@@ -30,12 +28,6 @@ export default function HomeScreen({
   route,
   currentUser,
 }: IHomeScreenProps) {
-  useEffect(() => {
-    navigation.setOptions({
-      header: stackHeaderProps => <CustomHeader {...stackHeaderProps} />
-    });
-  }, []);
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
