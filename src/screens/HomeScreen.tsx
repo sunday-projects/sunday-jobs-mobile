@@ -8,6 +8,7 @@ import { Header } from 'react-native-elements';
 import { RootStackParamList, IUser } from '@/types';
 import { JobsTabScreen } from '@/screens/tab-screens';
 import { CustomHeader } from '@/components';
+import { globalTheme } from '@/styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -53,7 +54,11 @@ export default function HomeScreen({
 
           return <MaterialIcon name={iconName} size={size} color={color} />;
         },
-      })}>
+      })}
+      tabBarOptions={{
+        activeTintColor: globalTheme.defaultBlue
+      }}
+    >
       <Tab.Screen name="Jobs" component={JobsTabScreen} />
     </Tab.Navigator>
   );

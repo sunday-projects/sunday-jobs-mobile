@@ -16,8 +16,13 @@ export default function JobItem({ job }: IJobItemProps) {
   return (
     <Card containerStyle={styles.jobItemCard}>
       <View style={[styles.inline, styles.jobCompletionView]}>
-        <CheckBox checked={job.completed} />
-        <Text>{job.jobName.toUpperCase()}</Text>
+        <CheckBox
+          checked={job.completed}
+          title={job.jobName.toUpperCase()}
+          containerStyle={styles.checkBox}
+          textStyle={styles.checkBoxText}
+          size={35}
+        />
       </View>
       <View style={styles.jobDescriptionView}>
         <View style={[styles.inline, styles.jobStatusView]}>
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginVertical: 8
+    marginVertical: 8,
   },
   jobItemCard: {
     shadowOffset: {
@@ -66,38 +71,47 @@ const styles = StyleSheet.create({
     },
   },
   jobCompletionView: {},
+  checkBox: {
+    marginLeft: 0,
+    backgroundColor: '#fff',
+    borderWidth: 0
+  },
+  checkBoxText: {
+    fontSize: 16,
+    fontWeight: 'normal'
+  },
   jobDescriptionView: {},
   jobStatusView: {
     justifyContent: 'space-between',
   },
   jobCompany: {
     flexGrow: 5,
-    flexBasis: 0
+    flexBasis: 0,
   },
   arrow: {
     flexGrow: 1,
-    flexBasis: 0
+    flexBasis: 0,
   },
   binLocation: {
     flexGrow: 2,
-    flexBasis: 0
+    flexBasis: 0,
   },
   jobAddressView: {},
   jobAddress: {
     marginLeft: 15,
-    fontSize: 16
+    fontSize: 16,
   },
   jobDateView: {
-    marginTop: 40
+    marginTop: 40,
   },
   pipe: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   h4Text: {
     fontSize: 18,
   },
   jobDate: {
     fontSize: 16,
-    color: globalTheme.defaultGrey
-  }
+    color: globalTheme.defaultGrey,
+  },
 });
