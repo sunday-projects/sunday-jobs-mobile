@@ -6,6 +6,7 @@ import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 import { IJob } from '@/types';
+import { globalTheme } from '@/styles';
 
 export interface IJobItemProps {
   job: IJob;
@@ -16,23 +17,36 @@ export default function JobItem({ job }: IJobItemProps) {
     <Card containerStyle={styles.jobItemCard}>
       <View style={[styles.inline, styles.jobCompletionView]}>
         <CheckBox checked={job.completed} />
-        <Text>{job.jobName}</Text>
+        <Text>{job.jobName.toUpperCase()}</Text>
       </View>
       <View style={styles.jobDescriptionView}>
         <View style={[styles.inline, styles.jobStatusView]}>
-          <Text h4>{job.companyName}</Text>
-          <FontistoIcon name="angle-right" size={24} color="black" />
-          <Text h4>{job.binLocation}</Text>
+          <Text h4 h4Style={[styles.h4Text, styles.jobCompany]}>
+            {job.companyName}
+          </Text>
+          <FontistoIcon
+            style={styles.arrow}
+            name="angle-right"
+            size={24}
+            color={globalTheme.defaultGrey}
+          />
+          <Text h4 h4Style={styles.h4Text} style={styles.binLocation}>
+            {job.binLocation}
+          </Text>
         </View>
         <View style={[styles.inline, styles.jobAddressView]}>
-          <EntypoIcon name="location" size={24} color="black" />
-          <Text>{job.binSpotLocation}</Text>
+          <EntypoIcon
+            name="location"
+            size={24}
+            color={globalTheme.defaultBlue}
+          />
+          <Text style={styles.jobAddress}>{job.binSpotLocation}</Text>
         </View>
       </View>
       <View style={[styles.inline, styles.jobDateView]}>
-        <Text>{moment(job.jobDate).format('LL')}</Text>
-        <Text>|</Text>
-        <Text>{moment(job.jobDate).format('LT')}</Text>
+        <Text style={styles.jobDate}>{moment(job.jobDate).format('LL')}</Text>
+        <Text style={[styles.pipe, styles.jobDate]}>|</Text>
+        <Text style={styles.jobDate}>{moment(job.jobDate).format('LT')}</Text>
       </View>
     </Card>
   );
@@ -43,6 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginVertical: 8
   },
   jobItemCard: {
     shadowOffset: {
@@ -52,7 +67,37 @@ const styles = StyleSheet.create({
   },
   jobCompletionView: {},
   jobDescriptionView: {},
-  jobStatusView: {},
+  jobStatusView: {
+    justifyContent: 'space-between',
+  },
+  jobCompany: {
+    flexGrow: 5,
+    flexBasis: 0
+  },
+  arrow: {
+    flexGrow: 1,
+    flexBasis: 0
+  },
+  binLocation: {
+    flexGrow: 2,
+    flexBasis: 0
+  },
   jobAddressView: {},
-  jobDateView: {},
+  jobAddress: {
+    marginLeft: 15,
+    fontSize: 16
+  },
+  jobDateView: {
+    marginTop: 40
+  },
+  pipe: {
+    marginHorizontal: 20
+  },
+  h4Text: {
+    fontSize: 18,
+  },
+  jobDate: {
+    fontSize: 16,
+    color: globalTheme.defaultGrey
+  }
 });

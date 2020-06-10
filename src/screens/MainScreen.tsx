@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IRootState } from '@/types';
 import { completedSignIn, completedSignOut } from '@/resolvers/user-resolver';
 import HomeScreen from './HomeScreen';
-import SignInScreen from './SignInScreen'
+import SignInScreen from './SignInScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +35,7 @@ export default function MainScreen({}: IMainScreenProps) {
 
   useEffect(() => {
     if (!currentUser.name) {
-      checkCurrentUser();
+      checkCurrentUser().then();
     }
   }, []);
 
