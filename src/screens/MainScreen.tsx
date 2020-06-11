@@ -48,11 +48,19 @@ export default function MainScreen({}: IMainScreenProps) {
           component={HomeScreen}
           initialParams={{ currentUser }}
           options={{
-            header: stackHeaderProps => <CustomHeader {...stackHeaderProps} />
+            header: (stackHeaderProps) => (
+              <CustomHeader {...stackHeaderProps} />
+            ),
           }}
         />
       ) : (
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen
+          name="SignIn"
+          component={SignInScreen}
+          options={{
+            headerShown: false
+          }}
+        />
       )}
     </Stack.Navigator>
   );

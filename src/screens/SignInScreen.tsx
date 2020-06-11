@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Keyboard,
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
+import { ScrollView, KeyboardAvoidingView, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Header } from 'react-native-elements';
 
 import { RootStackParamList } from '@/types';
 import globalStyles from '@/styles';
@@ -26,22 +18,28 @@ export interface ISignInScreenProps {
 
 export default function SignInScreen({ navigation }: ISignInScreenProps) {
   return (
-    <View style={globalStyles.defaultContainer}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        style={{
-          flex: 1,
-        }}>
-        <SignInForm navigation={navigation} />
-      </KeyboardAvoidingView>
-    </View>
+    <KeyboardAvoidingView
+        behavior={'padding'}
+        // style={globalStyles.defaultContainer}
+      style={{
+        flex: 1
+      }}
+      >
+      <Header />
+      <ScrollView
+        removeClippedSubviews={false}
+        keyboardShouldPersistTaps={'always'}
+      >
+          <SignInForm navigation={navigation} />
+        </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
-const styles = StyleSheet.create({
-  signInScreenWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  }
-});
+// const styles = StyleSheet.create({
+//   signInScreenWrapper: {
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     flex: 1,
+//   }
+// });
