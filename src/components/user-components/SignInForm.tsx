@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   TouchableWithoutFeedback,
@@ -6,13 +6,13 @@ import {
   StyleSheet,
   Keyboard,
 } from 'react-native';
-import { Input, Image, Button } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { completedSignIn } from '@/resolvers/user-resolver';
-import globalStyles from '@/styles';
+import { globalTheme } from '@/styles';
 
 // Type import
 import { SignInScreenNavigationProp } from '@/screens/SignInScreen';
@@ -27,6 +27,12 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
     name: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+
+  useEffect(() => {
+    signInData.name.length ? setDisableButton(false) : setDisableButton(true);
+  }, [signInData]);
 
   const handleChangeSignInData = (
     type: 'name' | 'password',
@@ -43,6 +49,7 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
   };
 
   const handleUserSignIn = async () => {
+    setLoading(true);
     try {
       await AsyncStorage.setItem(
         'currentUser',
@@ -50,35 +57,49 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
       );
       dispatch(completedSignIn({ name: signInData.name }));
       navigation.navigate('Home', { currentUser: { name: signInData.name } });
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={globalStyles.defaultContainer}>
-        <Image
-          source={require('@/assets/images/solaytic.png')}
-          style={styles.logo}
-        />
+      <View style={styles.container}>
         <View style={styles.signInForm}>
           <Input
-            placeholder="Jordan Belford"
+            placeholder="Your name"
             onChangeText={(text) => handleChangeSignInData('name', text)}
-            label="Your Name"
             value={signInData.name}
-            leftIcon={<Icon name="user" size={24} color="black" />}
+            leftIcon={
+              <Icon name="user" size={hp('3.5%')} color={globalTheme.defaultGrey} />
+            }
+            inputContainerStyle={styles.inputContainer}
+            leftIconContainerStyle={styles.inputLeftIconContainer}
+            inputStyle={styles.input}
           />
           <Input
             placeholder="Password"
-            label="Password"
+            // label="Password"
             value={signInData.password}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
+            leftIcon={
+              <Icon name="lock" size={hp('3.5%')} color={globalTheme.defaultGrey} />
+            }
             secureTextEntry={true}
             onChangeText={(text) => handleChangeSignInData('password', text)}
+            inputContainerStyle={styles.inputContainer}
+            leftIconContainerStyle={styles.inputLeftIconContainer}
+            inputStyle={styles.input}
           />
-          <Button title="Sign In" type="solid" onPress={handleUserSignIn} />
+          <Button
+            loading={loading}
+            disabled={disableButton}
+            title={'sign in'.toUpperCase()}
+            type="solid"
+            buttonStyle={styles.signInButton}
+            onPress={handleUserSignIn}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -87,12 +108,33 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
 
 const styles = StyleSheet.create({
   signInForm: {
-    width: wp('100%'),
-    flex: 1,
     paddingHorizontal: 20,
   },
   logo: {
     width: 200,
     height: 200,
   },
+  container: {
+    marginTop: hp('5%'),
+  },
+  signInButton: {
+    backgroundColor: globalTheme.defaultBlue,
+    elevation: 50,
+  },
+  inputLeftIconContainer: {
+    backgroundColor: '#fff',
+    marginRight: 10,
+    height: hp('8%'),
+    width: wp('15%'),
+    borderRadius: 6
+  },
+  inputContainer: {
+    borderBottomWidth: 0
+  },
+  input: {
+    backgroundColor: '#fff',
+    padding: 25,
+    height: hp('8%'),
+    borderRadius: 6
+  }
 });

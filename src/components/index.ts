@@ -1,5 +1,6 @@
 // General Components
 export { default as CustomHeader } from './CustomHeader';
+export { default as SignInHeader } from './SignInHeader';
 
 
 // User Components

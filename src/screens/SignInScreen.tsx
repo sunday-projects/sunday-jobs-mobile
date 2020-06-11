@@ -1,11 +1,10 @@
 import React from 'react';
 import { ScrollView, KeyboardAvoidingView, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Header } from 'react-native-elements';
 
 import { RootStackParamList } from '@/types';
 import globalStyles from '@/styles';
-import { SignInForm } from '@/components';
+import { SignInForm, SignInHeader } from '@/components';
 
 export type SignInScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,19 +18,17 @@ export interface ISignInScreenProps {
 export default function SignInScreen({ navigation }: ISignInScreenProps) {
   return (
     <KeyboardAvoidingView
-        behavior={'padding'}
-        // style={globalStyles.defaultContainer}
+      behavior={'padding'}
+      // style={globalStyles.defaultContainer}
       style={{
-        flex: 1
-      }}
-      >
-      <Header />
+        flex: 1,
+      }}>
+      <SignInHeader />
       <ScrollView
         removeClippedSubviews={false}
-        keyboardShouldPersistTaps={'always'}
-      >
-          <SignInForm navigation={navigation} />
-        </ScrollView>
+        keyboardShouldPersistTaps={'always'}>
+        <SignInForm navigation={navigation} />
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
