@@ -1,6 +1,12 @@
 import React from 'react';
-import { ScrollView, KeyboardAvoidingView, View } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  ScrollView,
+  Keyboard,
+  StyleSheet,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { RootStackParamList } from '@/types';
 import globalStyles from '@/styles';
@@ -17,23 +23,18 @@ export interface ISignInScreenProps {
 
 export default function SignInScreen({ navigation }: ISignInScreenProps) {
   return (
-    <KeyboardAvoidingView
-      behavior={'padding'}
-      style={{
-        flexGrow: 1,
-      }}>
-      {/* <ScrollView> */}
-      <SignInHeader />
-      <SignInForm navigation={navigation} />
-      {/* </ScrollView> */}
-    </KeyboardAvoidingView>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <ScrollView contentContainerStyle={styles.signInScreenWrapper}>
+        <SignInHeader />
+        <SignInForm navigation={navigation} />
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 
-// const styles = StyleSheet.create({
-//   signInScreenWrapper: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     flex: 1,
-//   }
-// });
+const styles = StyleSheet.create({
+  signInScreenWrapper: {
+    flexGrow: 1,
+    paddingBottom: hp('4%'),
+  },
+});

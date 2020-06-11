@@ -8,36 +8,14 @@ import {
 
 import { globalTheme } from '@/styles';
 
-export interface ISignInHeaderProps { }
+export interface ISignInHeaderProps {}
 
-export interface ISignInHeaderState {
-  logoSize: {
-    width: number;
-    height: number
-  };
-}
+export interface ISignInHeaderState {}
 
-export default class SignInHeader extends Component<ISignInHeaderProps, ISignInHeaderState> {
-  state = {
-    logoSize: {
-      width: 200,
-      height: 200
-    }
-  };
-
-  componentDidMount() {
-    const win = Dimensions.get('window');
-    const logoSize = Image.resolveAssetSource(require('@/assets/images/solaytic.png'));
-    const logoRatio = win.width / logoSize.width;
-    this.setState({
-      ...this.state,
-      logoSize: {
-        width: win.width,
-        height: logoSize.height * logoRatio
-      }
-    });
-  }
-
+export default class SignInHeader extends Component<
+  ISignInHeaderProps,
+  ISignInHeaderState
+> {
   render() {
     return (
       <View style={styles.container}>
@@ -73,10 +51,10 @@ const styles = StyleSheet.create({
   header: {
     elevation: 50,
     height: hp('15%'),
-    backgroundColor: globalTheme.defaultBlue
+    backgroundColor: globalTheme.defaultBlue,
   },
   container: {
     height: hp('30%'),
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });

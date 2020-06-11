@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  TouchableWithoutFeedback,
-  View,
-  StyleSheet,
-  Keyboard,
-} from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -68,66 +63,64 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <View style={styles.signInForm}>
-          <Input
-            placeholder="Your name"
-            onChangeText={(text) => handleChangeSignInData('name', text)}
-            value={signInData.name}
-            leftIcon={
-              <Icon
-                name="user"
-                size={hp('3.5%')}
-                color={globalTheme.defaultGrey}
-              />
-            }
-            inputContainerStyle={styles.inputContainer}
-            leftIconContainerStyle={styles.inputLeftIconContainer}
-            inputStyle={styles.input}
-          />
-          <Input
-            placeholder="Password"
-            value={signInData.password}
-            leftIcon={
-              <Icon
-                name="lock"
-                size={hp('3.5%')}
-                color={globalTheme.defaultGrey}
-              />
-            }
-            secureTextEntry={true}
-            onChangeText={(text) => handleChangeSignInData('password', text)}
-            inputContainerStyle={styles.inputContainer}
-            leftIconContainerStyle={styles.inputLeftIconContainer}
-            inputStyle={styles.input}
-          />
-          <Button
-            loading={loading}
-            disabled={disableButton}
-            title={'sign in'.toUpperCase()}
-            type="solid"
-            buttonStyle={styles.signInButton}
-            onPress={handleUserSignIn}
-            titleStyle={styles.signInButtonTitle}
-            containerStyle={styles.signInButtonContainer}
-          />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.signInForm}>
+        <Input
+          placeholder="Your name"
+          onChangeText={(text) => handleChangeSignInData('name', text)}
+          value={signInData.name}
+          leftIcon={
+            <Icon
+              name="user"
+              size={hp('3.5%')}
+              color={globalTheme.defaultGrey}
+            />
+          }
+          inputContainerStyle={styles.inputContainer}
+          leftIconContainerStyle={styles.inputLeftIconContainer}
+          inputStyle={styles.input}
+        />
+        <Input
+          placeholder="Password"
+          value={signInData.password}
+          leftIcon={
+            <Icon
+              name="lock"
+              size={hp('3.5%')}
+              color={globalTheme.defaultGrey}
+            />
+          }
+          secureTextEntry={true}
+          onChangeText={(text) => handleChangeSignInData('password', text)}
+          inputContainerStyle={styles.inputContainer}
+          leftIconContainerStyle={styles.inputLeftIconContainer}
+          inputStyle={styles.input}
+        />
+        <Button
+          loading={loading}
+          disabled={disableButton}
+          title={'sign in'.toUpperCase()}
+          type="solid"
+          buttonStyle={styles.signInButton}
+          onPress={handleUserSignIn}
+          titleStyle={styles.signInButtonTitle}
+          containerStyle={styles.signInButtonContainer}
+        />
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: hp('5%'),
+  },
   signInForm: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
   },
   logo: {
     width: 200,
     height: 200,
-  },
-  container: {
-    marginTop: hp('5%'),
   },
   signInButtonContainer: {
     elevation: 10,
@@ -153,7 +146,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
-    padding: 25,
+    padding: 20,
     height: hp('8%'),
     borderRadius: 6,
   },
