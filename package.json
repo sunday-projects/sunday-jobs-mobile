@@ -30,6 +30,7 @@
     "react-native-safe-area-context": "^3.0.2",
     "react-native-screens": "^2.8.0",
     "react-native-skeleton-placeholder": "^2.0.7",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
@@ -47,6 +48,7 @@
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
+    "jetifier": "^1.6.6",
     "metro-react-native-babel-preset": "^0.58.0",
     "prettier": "^2.0.4",
     "react-test-renderer": "16.11.0",

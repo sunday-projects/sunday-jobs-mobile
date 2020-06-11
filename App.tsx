@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StyleSheet } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 import store from '@/stores';
 import { MainScreen } from '@/screens';
@@ -10,6 +11,10 @@ import { MainScreen } from '@/screens';
 export interface IAppProps {}
 
 export default function App(props: IAppProps) {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <ReduxProvider store={store}>
       <NavigationContainer>
