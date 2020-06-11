@@ -48,7 +48,8 @@ export default function HomeScreen({
         },
       })}
       tabBarOptions={{
-        activeTintColor: globalTheme.defaultBlue
+        activeTintColor: globalTheme.defaultBlue,
+        inactiveTintColor: globalTheme.defaultGrey
       }}
     >
       <Tab.Screen name="Jobs" component={JobsTabScreen} />

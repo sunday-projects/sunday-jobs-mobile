@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -58,7 +58,7 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.error(err);
+      Alert.alert('Failed to sign in, please try again or restart the application!');
     }
   };
 

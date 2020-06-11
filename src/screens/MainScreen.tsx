@@ -8,6 +8,7 @@ import { completedSignIn, completedSignOut } from '@/resolvers/user-resolver';
 import HomeScreen from './HomeScreen';
 import SignInScreen from './SignInScreen';
 import { CustomHeader } from '@/components';
+import { Alert } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -28,9 +29,8 @@ export default function MainScreen({}: IMainScreenProps) {
         ? dispatch(completedSignIn(JSON.parse(currentUserFromAsyncStorage)))
         : dispatch(completedSignOut());
     } catch (err) {
-      // Comment below on production, set error handler in advance.
-      console.error(err);
       dispatch(completedSignOut());
+      Alert.alert('You are not signed in!', 'Please try signin in again.');
     }
   }, [AsyncStorage]);
 
@@ -58,7 +58,7 @@ export default function MainScreen({}: IMainScreenProps) {
           name="SignIn"
           component={SignInScreen}
           options={{
-            headerShown: false
+            headerShown: false,
           }}
         />
       )}

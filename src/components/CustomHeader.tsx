@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { StackHeaderProps } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { Header, Text, Button } from 'react-native-elements';
@@ -42,16 +42,33 @@ export default function CustomHeader({ navigation, scene }: ICustomHeader) {
           title={`${'reject'.toUpperCase()}`}
           type="outline"
           titleStyle={{
-            color: 'pink',
+            color: globalTheme.defaultPink,
+            fontWeight: 'bold'
           }}
           buttonStyle={styles.actionButton}
+          onPress={() =>
+            Alert.alert(
+              'Rejecting Jobs',
+              'This feature is not available yet!',
+            )
+          }
         />
         <Button
           title={`${'acknowledge'.toUpperCase()}${
             totalSelectedJobs ? ` (${totalSelectedJobs})` : ''
           }`}
           type="outline"
+          titleStyle={{
+            color: globalTheme.defaultBlue,
+            fontWeight: 'bold'
+          }}
           buttonStyle={styles.actionButton}
+          onPress={() =>
+            Alert.alert(
+              'Acknowledging Jobs',
+              'This feature is not available yet!',
+            )
+          }
         />
       </View>
     </Header>

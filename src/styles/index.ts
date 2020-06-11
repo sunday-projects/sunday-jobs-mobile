@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const globalTheme = {
   defaultBlue: '#2089dc',
-  defaultGrey: '#979797'
+  defaultGrey: '#979797',
+  defaultPink: '#f54291'
 }
 
 export default StyleSheet.create({
