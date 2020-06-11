@@ -9,7 +9,10 @@ import {
 import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 import { completedSignIn } from '@/resolvers/user-resolver';
 import { globalTheme } from '@/styles';
@@ -73,7 +76,11 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
             onChangeText={(text) => handleChangeSignInData('name', text)}
             value={signInData.name}
             leftIcon={
-              <Icon name="user" size={hp('3.5%')} color={globalTheme.defaultGrey} />
+              <Icon
+                name="user"
+                size={hp('3.5%')}
+                color={globalTheme.defaultGrey}
+              />
             }
             inputContainerStyle={styles.inputContainer}
             leftIconContainerStyle={styles.inputLeftIconContainer}
@@ -81,10 +88,13 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
           />
           <Input
             placeholder="Password"
-            // label="Password"
             value={signInData.password}
             leftIcon={
-              <Icon name="lock" size={hp('3.5%')} color={globalTheme.defaultGrey} />
+              <Icon
+                name="lock"
+                size={hp('3.5%')}
+                color={globalTheme.defaultGrey}
+              />
             }
             secureTextEntry={true}
             onChangeText={(text) => handleChangeSignInData('password', text)}
@@ -99,6 +109,8 @@ export default function SignInForm({ navigation }: ISignInFormProps) {
             type="solid"
             buttonStyle={styles.signInButton}
             onPress={handleUserSignIn}
+            titleStyle={styles.signInButtonTitle}
+            containerStyle={styles.signInButtonContainer}
           />
         </View>
       </View>
@@ -117,24 +129,32 @@ const styles = StyleSheet.create({
   container: {
     marginTop: hp('5%'),
   },
+  signInButtonContainer: {
+    elevation: 10,
+  },
   signInButton: {
     backgroundColor: globalTheme.defaultBlue,
-    elevation: 50,
+    paddingVertical: 13,
+  },
+  signInButtonTitle: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 23,
   },
   inputLeftIconContainer: {
     backgroundColor: '#fff',
     marginRight: 10,
     height: hp('8%'),
     width: wp('15%'),
-    borderRadius: 6
+    borderRadius: 6,
   },
   inputContainer: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
   },
   input: {
     backgroundColor: '#fff',
     padding: 25,
     height: hp('8%'),
-    borderRadius: 6
-  }
+    borderRadius: 6,
+  },
 });

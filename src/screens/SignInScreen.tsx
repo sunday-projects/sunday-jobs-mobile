@@ -19,16 +19,13 @@ export default function SignInScreen({ navigation }: ISignInScreenProps) {
   return (
     <KeyboardAvoidingView
       behavior={'padding'}
-      // style={globalStyles.defaultContainer}
       style={{
-        flex: 1,
+        flexGrow: 1,
       }}>
+      {/* <ScrollView> */}
       <SignInHeader />
-      <ScrollView
-        removeClippedSubviews={false}
-        keyboardShouldPersistTaps={'always'}>
-        <SignInForm navigation={navigation} />
-      </ScrollView>
+      <SignInForm navigation={navigation} />
+      {/* </ScrollView> */}
     </KeyboardAvoidingView>
   );
 }
